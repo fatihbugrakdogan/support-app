@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+/* NativeMinds design language — extracted from nativeminds.ai:
+   warm cream canvas, deep ink, signature lime accent, violet for AI,
+   generous whitespace, "modern yet human". */
+@theme {
+  --color-canvas: #f4efe7;
+  --color-canvas-deep: #ece5d8;
+  --color-panel: #fdfbf6;
+  --color-ink: #141029;
+  --color-ink-soft: #4d4864;
+  --color-ink-faint: #8b869e;
+  --color-line: #e3dccd;
+  --color-lime: #b7f33c;
+  --color-lime-deep: #93d418;
+  --color-violet: #7c3aed;
+  --color-violet-soft: #f1e9fe;
+  --color-green: #0b6e4f;
+  --color-green-soft: #e2f3ec;
+  --color-amber: #92600a;
+  --color-amber-soft: #fdf1da;
+  --color-red: #b02a37;
+  --color-red-soft: #fbe7e9;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-lime);
+  color: var(--color-ink);
+}
+
+/* Dotted separators — the NativeMinds "hand-drawn warmth" note */
+.dotted-rule {
+  border: none;
+  border-top: 2px dotted var(--color-line);
+}
+
+/* ---- Motion system: calm, premium, 200-400ms, ease-out ---- */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.97) translateY(6px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes bar-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.rise { animation: rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.pulse-soft { animation: pulse-soft 1.6s ease-in-out infinite; }
+.modal-overlay { animation: overlay-in 0.2s ease-out both; }
+.modal-panel { animation: scale-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg, var(--color-canvas-deep) 25%,
+    #f7f2e9 50%, var(--color-canvas-deep) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+.conf-fill { transform-origin: left; animation: bar-grow 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Premium interaction defaults */
+button, a, select, input, textarea { transition: all 0.18s ease-out; }
+tr { transition: background-color 0.15s ease-out; }
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238b869e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 30px !important;
+}
+:focus-visible {
+  outline: 2px solid var(--color-lime-deep);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise, .modal-panel, .modal-overlay, .conf-fill { animation: none; }
+}
